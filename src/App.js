@@ -22,15 +22,26 @@ class App extends React.Component {
     const country = e.target.elements.country.value;
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`);
     const data = await api_call.json();
-    console.log(data);
-    this.setState({
-      temprature: data.main.temp,
-      city: data.name,
-      country: data.sys.country,
-      wind: data.wind.speed,
-      description: data.weather[0].main,
-      error: ""
-    });
+    if (city, country) {
+      console.log(data);
+      this.setState({
+        temprature: data.main.temp,
+        city: data.name,
+        country: data.sys.country,
+        wind: data.wind.speed,
+        description: data.weather[0].main,
+        error: ""
+      });
+    } else {
+      this.setState({
+        temprature: undefined,
+        city: undefined,
+        country: undefined,
+        wind: undefined,
+        description: undefined,
+        error: "Glöm inte att fylla i alla fälten!"
+      });
+    }
   }
   render() {
     return (
